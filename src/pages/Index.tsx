@@ -1,7 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Shield, ExternalLink, Mail, Github, Linkedin, Terminal, Menu, X, ShieldCheck, Eye, Database, Activity, Monitor, FileSearch, AlertTriangle, Search } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
+import { motion } from "framer-motion";
 import heroImage from "@/assets/hero-image.jpg";
+
+const ScrollReveal = ({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-80px" }}
+    transition={{ duration: 0.6, delay, ease: "easeOut" }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+const StaggerContainer = ({ children, className = "" }: { children: ReactNode; className?: string }) => (
+  <motion.div
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: "-80px" }}
+    variants={{
+      hidden: {},
+      visible: { transition: { staggerChildren: 0.1 } },
+    }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
 
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +58,12 @@ const Nav = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-background/95 backdrop-blur-md border-b border-border/50" : "bg-transparent"}`}>
+    <motion.nav
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-background/95 backdrop-blur-md border-b border-border/50" : "bg-transparent"}`}
+    >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20">
           <a href="#" className="flex items-center space-x-2 text-2xl font-bold font-mono tracking-tighter hover:text-primary transition-colors">
@@ -66,7 +104,7 @@ const Nav = () => {
           </div>
         </div>
       )}
-    </nav>
+    </motion.nav>
   );
 };
 
@@ -77,7 +115,12 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6 animate-slide-up">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="space-y-6"
+          >
             <div className="inline-block px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-sm font-medium font-mono">
               🛡️ Blue Team Defender
             </div>
@@ -99,9 +142,14 @@ const Hero = () => {
                 View My Work
               </Button>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="relative animate-slide-up [animation-delay:200ms]">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="relative"
+          >
             <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-2xl border border-primary/20 box-glow bg-card/50">
               <img 
                 src={heroImage}
@@ -113,7 +161,7 @@ const Hero = () => {
             
             <div className="absolute -z-10 top-1/4 -right-12 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
             <div className="absolute -z-10 bottom-1/4 -left-12 w-64 h-64 bg-accent/10 rounded-full blur-[100px]" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -157,22 +205,22 @@ const Services = () => {
   return (
     <section id="services" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <ScrollReveal className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Defensive Services</h2>
           <p className="text-muted-foreground">Comprehensive Blue Team security solutions to protect, detect, and respond to threats across your entire environment.</p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div key={index} className="p-8 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors duration-300 group">
+            <motion.div key={index} variants={staggerItem} className="p-8 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors duration-300 group">
               <div className="mb-6 p-4 rounded-lg bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                 {service.icon}
               </div>
               <h3 className="text-xl font-bold mb-3">{service.title}</h3>
               <p className="text-muted-foreground">{service.description}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
@@ -183,7 +231,7 @@ const About = () => {
     <section id="about" className="py-24">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="relative">
+          <ScrollReveal>
             <div className="aspect-video rounded-xl overflow-hidden bg-muted relative group">
               <div className="absolute inset-0 flex items-center justify-center bg-black/50 group-hover:bg-black/40 transition-colors">
                 <Terminal className="w-16 h-16 text-primary animate-pulse" />
@@ -197,33 +245,28 @@ const About = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
           
-          <div className="space-y-6">
+          <ScrollReveal delay={0.2} className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">About Me</h2>
             <h3 className="text-xl text-primary font-medium">Blue Team Analyst & Incident Responder</h3>
             <p className="text-muted-foreground">
               With over 8 years in defensive cybersecurity, I specialize in SOC operations, threat hunting, and incident response. I hold certifications including GCIA, GCIH, and CySA+, and have defended enterprise environments against nation-state and cybercriminal threat actors.
             </p>
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">200+</h4>
-                <p className="text-sm text-muted-foreground">Incidents Handled</p>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">50+</h4>
-                <p className="text-sm text-muted-foreground">Clients Protected</p>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">99.9%</h4>
-                <p className="text-sm text-muted-foreground">Uptime Maintained</p>
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">24/7</h4>
-                <p className="text-sm text-muted-foreground">Monitoring Coverage</p>
-              </div>
-            </div>
-          </div>
+            <StaggerContainer className="grid grid-cols-2 gap-4 pt-4">
+              {[
+                { value: "200+", label: "Incidents Handled" },
+                { value: "50+", label: "Clients Protected" },
+                { value: "99.9%", label: "Uptime Maintained" },
+                { value: "24/7", label: "Monitoring Coverage" },
+              ].map((stat) => (
+                <motion.div key={stat.label} variants={staggerItem} className="space-y-1">
+                  <h4 className="font-bold text-2xl text-primary">{stat.value}</h4>
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                </motion.div>
+              ))}
+            </StaggerContainer>
+          </ScrollReveal>
         </div>
       </div>
     </section>
@@ -252,17 +295,17 @@ const Projects = () => {
   return (
     <section id="projects" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex justify-between items-end mb-12">
+        <ScrollReveal className="flex justify-between items-end mb-12">
           <div className="space-y-2">
             <h2 className="text-3xl md:text-4xl font-bold">Case Studies</h2>
             <p className="text-muted-foreground">Real-world defensive security engagements and outcomes.</p>
           </div>
           <Button variant="outline" className="hidden md:flex">View All Cases</Button>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, i) => (
-            <div key={i} className="group rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300">
+            <motion.div key={i} variants={staggerItem} className="group rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300">
               <div className="aspect-video bg-muted relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary/5 transition-colors" />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -281,9 +324,9 @@ const Projects = () => {
                 </div>
                 <p className="text-muted-foreground text-sm">{project.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
@@ -294,7 +337,7 @@ const Contact = () => {
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
-          <div className="space-y-8">
+          <ScrollReveal className="space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl md:text-4xl font-bold">Strengthen Your Defenses</h2>
               <p className="text-muted-foreground">
@@ -331,31 +374,33 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
-          <form className="space-y-6 p-8 rounded-2xl bg-card border border-border box-glow">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">First Name</label>
-                <input className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="John" />
+          <ScrollReveal delay={0.2}>
+            <form className="space-y-6 p-8 rounded-2xl bg-card border border-border box-glow">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">First Name</label>
+                  <input className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="John" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Last Name</label>
+                  <input className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Doe" />
+                </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Last Name</label>
-                <input className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Doe" />
+                <label className="text-sm font-medium">Email</label>
+                <input type="email" className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com" />
               </div>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Email</label>
-              <input type="email" className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Message</label>
-              <textarea className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[120px]" placeholder="Describe your security needs..." />
-            </div>
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg">
-              Request Consultation
-            </Button>
-          </form>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Message</label>
+                <textarea className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[120px]" placeholder="Describe your security needs..." />
+              </div>
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg">
+                Request Consultation
+              </Button>
+            </form>
+          </ScrollReveal>
         </div>
       </div>
     </section>
@@ -380,14 +425,14 @@ const Certifications = () => {
   return (
     <section id="certifications" className="py-24">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+        <ScrollReveal className="text-center max-w-2xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">Certifications & Tools</h2>
           <p className="text-muted-foreground">Industry-recognized credentials and the defensive tools I work with daily.</p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {certs.map((cert, i) => (
-            <div key={i} className="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors group flex items-start gap-4">
+            <motion.div key={i} variants={staggerItem} className="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors group flex items-start gap-4">
               <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors shrink-0">
                 <ShieldCheck className="w-6 h-6 text-primary" />
               </div>
@@ -396,11 +441,11 @@ const Certifications = () => {
                 <p className="text-sm text-muted-foreground">{cert.name}</p>
                 <p className="text-xs text-primary mt-1">{cert.org} · {cert.year}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </StaggerContainer>
 
-        <div className="text-center">
+        <ScrollReveal className="text-center">
           <h3 className="text-xl font-bold mb-6">Tools & Platforms</h3>
           <div className="flex flex-wrap justify-center gap-3">
             {tools.map((tool) => (
@@ -409,7 +454,7 @@ const Certifications = () => {
               </span>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -426,11 +471,17 @@ const Index = () => {
       <Projects />
       <Contact />
       
-      <footer className="py-8 border-t border-border bg-card">
+      <motion.footer
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-8 border-t border-border bg-card"
+      >
         <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
           <p>© 2024 BlueShield. Defending the digital frontier.</p>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 };
