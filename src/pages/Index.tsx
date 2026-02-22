@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Shield, ExternalLink, Mail, Github, Linkedin, Terminal, Menu, X, Lock, Eye, Database, Code, Globe, Server } from "lucide-react";
+import { Shield, ExternalLink, Mail, Github, Linkedin, Terminal, Menu, X, ShieldCheck, Eye, Database, Activity, Monitor, FileSearch, AlertTriangle, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -28,11 +28,10 @@ const Nav = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-20">
           <a href="#" className="flex items-center space-x-2 text-2xl font-bold font-mono tracking-tighter hover:text-primary transition-colors">
-            <Shield className="w-8 h-8 text-primary" />
-            <span>CSume</span>
+            <ShieldCheck className="w-8 h-8 text-primary" />
+            <span>BlueShield</span>
           </a>
 
-          {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
               <a key={link.name} href={link.href} className="text-sm font-medium hover:text-primary transition-colors uppercase tracking-wider">
@@ -44,14 +43,12 @@ const Nav = () => {
             </Button>
           </div>
 
-          {/* Mobile Nav Button */}
           <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Nav Menu */}
       {isOpen && (
         <div className="md:hidden bg-background border-b border-border p-4 absolute w-full">
           <div className="flex flex-col space-y-4">
@@ -81,24 +78,24 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 animate-slide-up">
             <div className="inline-block px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-sm font-medium font-mono">
-              Available for Freelance
+              🛡️ Blue Team Defender
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
               Hello I'm <br />
               <span className="text-primary gradient-text">Jason Beaudry</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-lg">
-              Cyber Security Expert specialized in penetration testing and secure infrastructure.
+              Blue Team Security Analyst & Incident Response Specialist
             </p>
             <p className="text-muted-foreground max-w-md">
-              I'm ready to protect your data from hacker. Protect your website, server, service, & application against the increasing sophistication of hacker threats.
+              Defending organizations against cyber threats through proactive monitoring, threat hunting, incident response, and building resilient security architectures.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground min-w-[150px]">
-                Get Started
+                Get Protected
               </Button>
               <Button size="lg" variant="outline" className="border-primary/50 hover:bg-primary/10 min-w-[150px]">
-                Learn More
+                View My Work
               </Button>
             </div>
           </div>
@@ -107,15 +104,14 @@ const Hero = () => {
             <div className="relative aspect-square md:aspect-[4/5] overflow-hidden rounded-2xl border border-primary/20 box-glow bg-card/50">
               <img 
                 src={heroImage}
-                alt="Jason Beaudry - Cyber Security Expert" 
+                alt="Jason Beaudry - Blue Team Security Analyst" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
             </div>
             
-            {/* Decorative Elements */}
             <div className="absolute -z-10 top-1/4 -right-12 w-64 h-64 bg-primary/20 rounded-full blur-[100px]" />
-            <div className="absolute -z-10 bottom-1/4 -left-12 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px]" />
+            <div className="absolute -z-10 bottom-1/4 -left-12 w-64 h-64 bg-accent/10 rounded-full blur-[100px]" />
           </div>
         </div>
       </div>
@@ -126,34 +122,34 @@ const Hero = () => {
 const Services = () => {
   const services = [
     {
-      icon: <Lock className="w-10 h-10 text-primary" />,
-      title: "Network Security",
-      description: "Securing internal networks from unauthorized access and potential breaches."
+      icon: <Monitor className="w-10 h-10 text-primary" />,
+      title: "SOC Operations",
+      description: "24/7 Security Operations Center monitoring, alert triage, and real-time threat detection using SIEM platforms."
     },
     {
-      icon: <Eye className="w-10 h-10 text-primary" />,
-      title: "Vulnerability Assessment",
-      description: "Identifying and quantifying security vulnerabilities in your environment."
+      icon: <AlertTriangle className="w-10 h-10 text-primary" />,
+      title: "Incident Response",
+      description: "Rapid containment, eradication, and recovery from security incidents with detailed post-incident analysis."
     },
     {
-      icon: <Database className="w-10 h-10 text-primary" />,
-      title: "Database Protection",
-      description: "Implementing robust security measures to protect sensitive data storage."
+      icon: <Search className="w-10 h-10 text-primary" />,
+      title: "Threat Hunting",
+      description: "Proactive hypothesis-driven searches through networks and endpoints to detect advanced persistent threats."
     },
     {
-      icon: <Terminal className="w-10 h-10 text-primary" />,
-      title: "Penetration Testing",
-      description: "Simulating cyber attacks to identify exploitable vulnerabilities."
+      icon: <FileSearch className="w-10 h-10 text-primary" />,
+      title: "Digital Forensics",
+      description: "Evidence collection, disk and memory forensics, and chain-of-custody preservation for investigations."
     },
     {
-      icon: <Globe className="w-10 h-10 text-primary" />,
-      title: "Web App Security",
-      description: "Protecting web applications from common attacks like SQL injection and XSS."
+      icon: <Activity className="w-10 h-10 text-primary" />,
+      title: "SIEM & Log Analysis",
+      description: "Deploying and tuning SIEM solutions like Splunk, ELK, and Microsoft Sentinel for maximum visibility."
     },
     {
-      icon: <Server className="w-10 h-10 text-primary" />,
-      title: "Server Hardening",
-      description: "Securing servers by reducing their surface of vulnerability."
+      icon: <ShieldCheck className="w-10 h-10 text-primary" />,
+      title: "Security Hardening",
+      description: "CIS benchmarks, endpoint protection, firewall rules, and zero-trust architecture implementation."
     }
   ];
 
@@ -161,8 +157,8 @@ const Services = () => {
     <section id="services" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">My Services</h2>
-          <p className="text-muted-foreground">Comprehensive security solutions tailored to protect your digital assets against evolving threats.</p>
+          <h2 className="text-3xl md:text-4xl font-bold">Defensive Services</h2>
+          <p className="text-muted-foreground">Comprehensive Blue Team security solutions to protect, detect, and respond to threats across your entire environment.</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -194,9 +190,9 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent pointer-events-none" />
               <div className="p-8 h-full flex items-end">
                 <div className="font-mono text-sm text-primary-foreground/80">
-                  <p>&gt; initializing security protocols...</p>
-                  <p>&gt; scanning for vulnerabilities...</p>
-                  <p>&gt; system secured.</p>
+                  <p>&gt; loading SIEM dashboard...</p>
+                  <p>&gt; correlating threat intel feeds...</p>
+                  <p>&gt; 0 active incidents. all clear.</p>
                 </div>
               </div>
             </div>
@@ -204,26 +200,26 @@ const About = () => {
           
           <div className="space-y-6">
             <h2 className="text-3xl md:text-4xl font-bold">About Me</h2>
-            <h3 className="text-xl text-primary font-medium">Certified Ethical Hacker & Security Analyst</h3>
+            <h3 className="text-xl text-primary font-medium">Blue Team Analyst & Incident Responder</h3>
             <p className="text-muted-foreground">
-              With over 8 years of experience in cybersecurity, I specialize in identifying vulnerabilities before malicious actors can exploit them. My approach combines automated tools with manual testing techniques to ensure comprehensive coverage.
+              With over 8 years in defensive cybersecurity, I specialize in SOC operations, threat hunting, and incident response. I hold certifications including GCIA, GCIH, and CySA+, and have defended enterprise environments against nation-state and cybercriminal threat actors.
             </p>
             <div className="grid grid-cols-2 gap-4 pt-4">
               <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">150+</h4>
-                <p className="text-sm text-muted-foreground">Projects Completed</p>
+                <h4 className="font-bold text-2xl text-primary">200+</h4>
+                <p className="text-sm text-muted-foreground">Incidents Handled</p>
               </div>
               <div className="space-y-1">
                 <h4 className="font-bold text-2xl text-primary">50+</h4>
-                <p className="text-sm text-muted-foreground">Happy Clients</p>
+                <p className="text-sm text-muted-foreground">Clients Protected</p>
               </div>
               <div className="space-y-1">
-                <h4 className="font-bold text-2xl text-primary">100%</h4>
-                <p className="text-sm text-muted-foreground">Satisfaction Rate</p>
+                <h4 className="font-bold text-2xl text-primary">99.9%</h4>
+                <p className="text-sm text-muted-foreground">Uptime Maintained</p>
               </div>
               <div className="space-y-1">
                 <h4 className="font-bold text-2xl text-primary">24/7</h4>
-                <p className="text-sm text-muted-foreground">Support Available</p>
+                <p className="text-sm text-muted-foreground">Monitoring Coverage</p>
               </div>
             </div>
           </div>
@@ -234,22 +230,43 @@ const About = () => {
 };
 
 const Projects = () => {
+  const projects = [
+    {
+      title: "Enterprise SOC Buildout",
+      category: "SOC Operations",
+      description: "Designed and deployed a 24/7 SOC for a Fortune 500 company using Splunk, CrowdStrike, and custom SOAR playbooks."
+    },
+    {
+      title: "Ransomware Incident Response",
+      category: "Incident Response",
+      description: "Led containment and recovery for a critical ransomware attack, restoring operations within 48 hours with zero data loss."
+    },
+    {
+      title: "Threat Hunting Program",
+      category: "Threat Hunting",
+      description: "Built a proactive threat hunting program using MITRE ATT&CK framework, uncovering 12 previously undetected intrusions."
+    }
+  ];
+
   return (
     <section id="projects" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-end mb-12">
           <div className="space-y-2">
-            <h2 className="text-3xl md:text-4xl font-bold">Latest Projects</h2>
-            <p className="text-muted-foreground">Recent security audits and implementations.</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Case Studies</h2>
+            <p className="text-muted-foreground">Real-world defensive security engagements and outcomes.</p>
           </div>
-          <Button variant="outline" className="hidden md:flex">View All Projects</Button>
+          <Button variant="outline" className="hidden md:flex">View All Cases</Button>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map((i) => (
+          {projects.map((project, i) => (
             <div key={i} className="group rounded-xl overflow-hidden bg-card border border-border hover:border-primary/50 transition-all duration-300">
               <div className="aspect-video bg-muted relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary/5 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <ShieldCheck className="w-12 h-12 text-primary/30 group-hover:text-primary/50 transition-colors" />
+                </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <Button variant="secondary" size="sm" className="gap-2">
                     <ExternalLink className="w-4 h-4" /> View Case Study
@@ -257,15 +274,11 @@ const Projects = () => {
                 </div>
               </div>
               <div className="p-6 space-y-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-bold hover:text-primary transition-colors cursor-pointer">FinTech Security Audit</h3>
-                    <p className="text-sm text-primary mt-1">Banking & Finance</p>
-                  </div>
+                <div>
+                  <h3 className="text-xl font-bold hover:text-primary transition-colors cursor-pointer">{project.title}</h3>
+                  <p className="text-sm text-primary mt-1">{project.category}</p>
                 </div>
-                <p className="text-muted-foreground text-sm">
-                  Complete infrastructure penetration testing and security hardening for a major fintech startup.
-                </p>
+                <p className="text-muted-foreground text-sm">{project.description}</p>
               </div>
             </div>
           ))}
@@ -282,9 +295,9 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold">Let's Secure Your Digital Assets</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">Strengthen Your Defenses</h2>
               <p className="text-muted-foreground">
-                Ready to enhance your cybersecurity posture? Reach out for a consultation or security assessment.
+                Need a Blue Team specialist? Let's discuss how I can help protect your organization from evolving cyber threats.
               </p>
             </div>
 
@@ -336,10 +349,10 @@ const Contact = () => {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Message</label>
-              <textarea className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[120px]" placeholder="How can I help you?" />
+              <textarea className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[120px]" placeholder="Describe your security needs..." />
             </div>
             <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-lg">
-              Send Message
+              Request Consultation
             </Button>
           </form>
         </div>
@@ -360,7 +373,7 @@ const Index = () => {
       
       <footer className="py-8 border-t border-border bg-card">
         <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
-          <p>© 2024 CSume. All rights reserved.</p>
+          <p>© 2024 BlueShield. Defending the digital frontier.</p>
         </div>
       </footer>
     </div>
