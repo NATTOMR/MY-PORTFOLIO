@@ -361,6 +361,59 @@ const Contact = () => {
   );
 };
 
+const Certifications = () => {
+  const certs = [
+    { name: "GIAC Certified Intrusion Analyst", abbr: "GCIA", org: "SANS / GIAC", year: "2022" },
+    { name: "GIAC Certified Incident Handler", abbr: "GCIH", org: "SANS / GIAC", year: "2021" },
+    { name: "CompTIA CySA+", abbr: "CySA+", org: "CompTIA", year: "2020" },
+    { name: "Certified SOC Analyst", abbr: "CSA", org: "EC-Council", year: "2019" },
+    { name: "Splunk Core Certified Power User", abbr: "SCPU", org: "Splunk", year: "2023" },
+    { name: "Microsoft SC-200", abbr: "SC-200", org: "Microsoft", year: "2023" },
+  ];
+
+  const tools = [
+    "Splunk", "Microsoft Sentinel", "CrowdStrike", "Wireshark", "Volatility",
+    "YARA", "Suricata", "Velociraptor", "TheHive", "MISP", "Elastic SIEM", "Autopsy"
+  ];
+
+  return (
+    <section id="certifications" className="py-24">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+          <h2 className="text-3xl md:text-4xl font-bold">Certifications & Tools</h2>
+          <p className="text-muted-foreground">Industry-recognized credentials and the defensive tools I work with daily.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {certs.map((cert, i) => (
+            <div key={i} className="p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors group flex items-start gap-4">
+              <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors shrink-0">
+                <ShieldCheck className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">{cert.abbr}</h3>
+                <p className="text-sm text-muted-foreground">{cert.name}</p>
+                <p className="text-xs text-primary mt-1">{cert.org} · {cert.year}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <h3 className="text-xl font-bold mb-6">Tools & Platforms</h3>
+          <div className="flex flex-wrap justify-center gap-3">
+            {tools.map((tool) => (
+              <span key={tool} className="px-4 py-2 rounded-full bg-secondary border border-border text-sm font-medium text-foreground hover:border-primary/50 hover:bg-primary/10 transition-colors">
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -368,6 +421,7 @@ const Index = () => {
       <Hero />
       <About />
       <Services />
+      <Certifications />
       <Projects />
       <Contact />
       
